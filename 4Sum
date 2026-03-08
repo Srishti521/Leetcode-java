@@ -1,0 +1,42 @@
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums); //step-1 Sort the array
+        List<List<Integer>> result = new ArrayList<>();
+
+       
+        //step-2 fix first two number by using nested loop
+        for(int i=0; i<nums.length-3; i++){ //fix first number
+             if(i>0 && nums[i] == nums[i-1]) continue; //skip dublicates
+            for(int j =i+1; j<nums.length-2; j++){ //fix second number
+                if(j>i+1 &&  nums[j] == nums[j-1]) continue; //skip dublicates
+
+                long remainingTarget = (long)target - nums[i] - nums[j];
+                int left=j+1; int right=nums.length-1;
+
+
+                //using two pointer
+                while(left < right){
+                    int sum = nums[left] + nums[right];
+
+                    if(sum < remainingTarget){
+                        left++;
+                    } else if (sum > remainingTarget){
+                        right--;
+                    } else {
+                        result.add(Arrays.asList(nums[i] , nums[j] , nums[left] , nums[right]));
+
+                    //skip dublicates
+                        int prevLeft = nums[left], prevRight = nums[right];
+                       while (left < right && nums[left] == prevLeft) left++;
+                       while (left < right && nums[right] == prevRight) right--;
+                    }
+                }
+            }
+
+
+        }
+        return result;
+
+        
+    }
+}
