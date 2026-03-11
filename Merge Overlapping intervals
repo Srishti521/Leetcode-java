@@ -1,0 +1,34 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        // edge case
+        if(intervals.length <= 1) {
+            return intervals;
+        }
+        //sort the intervals
+        Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
+        //make a list to store result
+        List<int[]> result = new ArrayList<>();
+        //initialize with the first interval
+        int[] currentInterval = intervals[0];
+        result.add(currentInterval);
+
+        //  iterate through the rest of the intervals
+        for(int[] interval : intervals){    //temp
+            int currentEnd = currentInterval[1];
+            int  nextStart = interval[0];
+             int nextEnd = interval[1];
+        
+        //overlap found
+        if(currentEnd >= nextStart){
+            currentInterval[1] = Math.max(currentEnd , nextEnd);
+        } else{  //no overlap
+            currentInterval= interval ;
+            result.add(currentInterval);
+        }
+
+        }
+    
+        //retrun result 
+        return result.toArray(new int[result.size()][]);
+    }
+}
